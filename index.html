@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PUCIT CGPA & GPA Calculator | Muhammad Abdullah</title>
+  <meta name="description"
+    content="PUCIT CGPA & GPA Calculator by Muhammad Abdullah: calculate semester GPA, cumulative CGPA, and updated CGPA using official PUCIT grading rules." />
+  <meta name="author" content="Muhammad Abdullah" />
+  <meta name="keywords"
+    content="CGPA calculator, GPA calculator, Muhammad Abdullah, university grading system, grade point average, GPA to CGPA" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PUCIT CGPA & GPA Calculator | Muhammad Abdullah" />
+  <meta property="og:description"
+    content="Calculate your semester GPA, overall CGPA, and updated CGPA with PUCIT's official grade scale, rounding rules, and CGPA policy." />
+  <meta property="og:site_name" content="PUCIT CGPA & GPA Calculator" />
+
+  <!-- Twitter-style preview (works for many platforms) -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PUCIT CGPA & GPA Calculator | Muhammad Abdullah" />
+  <meta name="twitter:description"
+    content="PUCIT CGPA & GPA Calculator by Muhammad Abdullah — fast, accurate GPA and CGPA calculations with the official grading scheme." />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-frame">
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="header-brand">
+        <h1>PUCIT CGPA & GPA Calculator</h1>
+        <p class="subtitle">Accurate GPA & CGPA calculations based on official PUCIT grading rules.</p>
+      </div>
+      <div class="header-right">
+        <div class="mode-switcher">
+          <label for="calculation-mode">Mode</label>
+          <select id="calculation-mode" aria-label="Calculation mode">
+            <option value="semester">Semester GPA</option>
+            <option value="cgpa">Cumulative CGPA (all courses)</option>
+            <option value="cgpa_update">Updated CGPA (with previous CGPA)</option>
+          </select>
+        </div>
+        <div class="social-links" aria-label="Muhammad Abdullah social links">
+          <a href="https://www.linkedin.com/in/abdullah2k05" class="social-link" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon social-icon--linkedin">in</span>
+            <span class="social-label">LinkedIn</span>
+          </a>
+          <a href="https://github.com/abdullah2k05" class="social-link" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon social-icon--github">GH</span>
+            <span class="social-label">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-layout">
+    <section class="card" aria-labelledby="course-input-heading">
+      <div class="card-header">
+        <h2 id="course-input-heading">Course details</h2>
+        <p class="card-subtitle" id="mode-description">
+          Enter the courses for a single semester to calculate your GPA.
+        </p>
+      </div>
+
+      <section class="previous-cgpa-panel" id="previous-cgpa-panel" hidden>
+        <h3>Previous record</h3>
+        <div class="previous-cgpa-grid">
+          <div>
+            <label for="previous-cgpa">Previous CGPA</label>
+            <input type="number" class="input input--number" id="previous-cgpa" min="0" max="4" step="0.01"
+              placeholder="e.g. 2.85" />
+          </div>
+          <div>
+            <label for="previous-total-credits">Total completed credit hours</label>
+            <input type="number" class="input input--number" id="previous-total-credits" min="0" step="0.5"
+              placeholder="e.g. 60" />
+          </div>
+        </div>
+        <p class="hint">
+          The updated CGPA is computed from previous CGPA and credits plus this semester's GPA and credits, using the same
+          weighted-average rule.
+        </p>
+      </section>
+
+      <div class="table-wrapper" aria-label="Course list">
+        <table class="courses-table" id="courses-table">
+          <thead>
+            <tr>
+              <th>Course code</th>
+              <th>Credit hours</th>
+              <th>Obtained marks (0–100)</th>
+              <th>Letter grade</th>
+              <th>Grade points</th>
+              <th>Weighted points</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="courses-tbody">
+            <!-- Rows added dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn secondary" id="add-row-btn">+ Add course</button>
+        <button type="button" class="btn" id="calculate-btn">Calculate</button>
+        <button type="button" class="btn ghost" id="clear-all-btn">Clear all</button>
+      </div>
+
+      <p class="hint">
+        Marks are always rounded <strong>up</strong> to the next whole number before converting to grades (e.g., 64.1 → 65).
+      </p>
+    </section>
+
+    <section class="results-grid">
+      <article class="card" aria-labelledby="result-heading">
+        <div class="card-header">
+          <h2 id="result-heading">Results</h2>
+          <p class="card-subtitle" id="result-subtitle">Calculated from all valid courses in the table.</p>
+        </div>
+
+        <div class="results-main">
+          <div class="result-number">
+            <span class="label" id="result-label">GPA</span>
+            <span class="value" id="result-value">–</span>
+          </div>
+          <div class="result-badge" id="eligibility-badge" hidden></div>
+        </div>
+
+        <dl class="results-meta">
+          <div>
+            <dt>Total credit hours</dt>
+            <dd id="total-credits">0</dd>
+          </div>
+          <div>
+            <dt>Total weighted grade points</dt>
+            <dd id="total-weighted">0.00</dd>
+          </div>
+          <div>
+            <dt>Minimum CGPA for degree</dt>
+            <dd>2.00</dd>
+          </div>
+        </dl>
+
+        <ul class="message-list" id="message-list" aria-live="polite"></ul>
+      </article>
+
+      <article class="card" aria-labelledby="rules-heading">
+        <div class="card-header">
+          <h2 id="rules-heading">Rules summary</h2>
+        </div>
+        <div class="rules-content">
+          <h3>Grading & GPA</h3>
+          <ul>
+            <li>GPA and CGPA are on a 4.00 scale.</li>
+            <li>Any fractional mark is rounded <strong>up</strong> to the next integer.</li>
+            <li>Letter grades are mapped from marks; calculations always use grade points, not letters.</li>
+            <li>Courses with grade <strong>F</strong> contribute 0.00 grade points but their credit hours are still counted.</li>
+          </ul>
+
+          <h3>Grade equivalence</h3>
+          <div class="table-wrapper table-wrapper--compact" aria-label="Grade equivalence table">
+            <table class="grade-scale-table">
+              <thead>
+                <tr>
+                  <th>Percentage / marks</th>
+                  <th>Letter grade</th>
+                  <th>Grade point (GP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>85 and above (85–100)</td>
+                  <td>A</td>
+                  <td>4.00</td>
+                </tr>
+                <tr>
+                  <td>80–84</td>
+                  <td>A-</td>
+                  <td>3.70</td>
+                </tr>
+                <tr>
+                  <td>75–79</td>
+                  <td>B+</td>
+                  <td>3.30</td>
+                </tr>
+                <tr>
+                  <td>70–74</td>
+                  <td>B</td>
+                  <td>3.00</td>
+                </tr>
+                <tr>
+                  <td>65–69</td>
+                  <td>B-</td>
+                  <td>2.70</td>
+                </tr>
+                <tr>
+                  <td>61–64</td>
+                  <td>C+</td>
+                  <td>2.30</td>
+                </tr>
+                <tr>
+                  <td>58–60</td>
+                  <td>C</td>
+                  <td>2.00</td>
+                </tr>
+                <tr>
+                  <td>55–57</td>
+                  <td>C-</td>
+                  <td>1.70</td>
+                </tr>
+                <tr>
+                  <td>50–54</td>
+                  <td>D</td>
+                  <td>1.00</td>
+                </tr>
+                <tr>
+                  <td>Below 50 or Absent (0–49)</td>
+                  <td>F</td>
+                  <td>0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Special grades (policy)</h3>
+          <ul class="special-grades-list">
+            <li><strong>W</strong> – Withdrawal; does not count in GPA or CGPA and is not shown in the final transcript.</li>
+            <li><strong>FW</strong> – Forced Withdrawal; does not count in GPA or CGPA but is shown in the final transcript.</li>
+            <li><strong>I</strong> – Incomplete; given in case of absence from exam. Must be completed within one month via a special
+              exam. If not completed, marks = 0 and GP = 0.00 and it then counts in GPA and CGPA.</li>
+          </ul>
+
+          <h3>CGPA rules</h3>
+          <ul>
+            <li>CGPA is calculated as a <strong>weighted average</strong> of all courses taken in the degree.</li>
+            <li>The weight for each course is its credit hours (CH).</li>
+            <li>Overall CGPA is computed directly from individual course grade points, not by averaging semester GPAs.</li>
+            <li>The minimum CGPA required for a degree is <strong>2.00</strong>.</li>
+          </ul>
+
+          <h3>CGPA formula</h3>
+          <p class="hint">
+            CGPA = Σ(ci × GPi) / Σ(ci)
+          </p>
+          <p class="hint">
+            where <strong>ci</strong> is the credit hours of the i-th course and <strong>GPi</strong> is the grade point obtained in that
+            course; n is the total number of courses in the degree.
+          </p>
+
+          <h3>Worked example</h3>
+          <p class="hint">
+            Suppose a student has 10 courses with a total of 31 credit hours and the sum of all CH × GP values is 93.3.
+          </p>
+          <p class="hint">
+            Then CGPA = 93.3 ÷ 31 = <strong>3.01</strong>.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <small>
+        <strong>CGPA & GPA Calculator by Muhammad Abdullah</strong>
+        <br />
+        This tool follows the specified university grading rules, including rounding, grade scale, and grade-point mapping.
+      </small>
+      <div class="footer-social-links" aria-label="Muhammad Abdullah social links">
+        <a href="https://www.linkedin.com/in/abdullah2k05" class="social-link" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon social-icon--linkedin">in</span>
+          <span class="social-label">LinkedIn</span>
+        </a>
+        <a href="https://github.com/abdullah2k05" class="social-link" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon social-icon--github">GH</span>
+          <span class="social-label">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <template id="course-row-template">
+    <tr>
+      <td>
+        <input type="text" class="input" name="course_code" placeholder="e.g. MATH101" />
+      </td>
+      <td>
+        <input type="number" class="input input--number" name="credit_hours" min="0" step="0.5" placeholder="3" />
+      </td>
+      <td>
+        <input type="number" class="input input--number" name="obtained_marks" min="0" max="100" step="0.1" placeholder="78.5" />
+      </td>
+      <td class="col--grade" data-field="letter_grade">–</td>
+      <td class="col--grade" data-field="grade_point">–</td>
+      <td class="col--grade" data-field="weighted_points">–</td>
+      <td class="col--actions">
+        <button type="button" class="icon-btn" data-action="remove" aria-label="Remove course">
+          ✕
+        </button>
+      </td>
+    </tr>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

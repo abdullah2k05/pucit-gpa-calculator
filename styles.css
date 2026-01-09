@@ -1,0 +1,908 @@
+:root {
+  --bg: #080b10;
+  --bg-elevated: #111827;
+  --bg-elevated-soft: #0f172a;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.15);
+  --accent-strong: #2563eb;
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.12);
+  --text: #e5e7eb;
+  --text-soft: #9ca3af;
+  --border-subtle: rgba(148, 163, 184, 0.25);
+  --radius-lg: 18px;
+  --radius-md: 10px;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.55);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background: radial-gradient(
+    circle at top left,
+    #1f2937 0,
+    #020617 52%,
+    #020617 100%
+  );
+  color: var(--text);
+}
+
+.page-frame {
+  width: 100%;
+  min-height: 100vh;
+  border-left: 1px solid rgba(148, 163, 184, 0.45);
+  border-right: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.85);
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  background: #020617;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0 0.75rem;
+  gap: 1.25rem;
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin: 0.2rem 0 0.45rem;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  margin-top: 0.1rem;
+}
+
+.footer-social-links {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  color: var(--text-soft);
+  text-decoration: none;
+}
+
+.social-link:hover .social-label {
+  color: var(--text);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.social-icon--linkedin {
+  background: #0a66c2;
+  color: #e5f0ff;
+}
+
+.social-icon--github {
+  background: #111827;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: #e5e7eb;
+}
+
+.social-label {
+  font-size: 0.76rem;
+}
+
+.mode-switcher {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.mode-switcher label {
+  color: var(--text-soft);
+}
+
+.mode-switcher select {
+  min-width: 170px;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 1.5rem;
+  padding: 1.75rem 0 2.25rem;
+  margin-top: 0.5rem;
+}
+
+.card {
+  background: radial-gradient(
+    circle at top left,
+    rgba(59, 130, 246, 0.18),
+    rgba(15, 23, 42, 0.98)
+  );
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: var(--shadow-soft);
+  padding: 1.25rem 1.35rem 1.3rem;
+}
+
+.card-header {
+  margin-bottom: 0.6rem;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.card-subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  align-items: center;
+}
+
+.hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.previous-cgpa-panel {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.previous-cgpa-panel h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.previous-cgpa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.previous-cgpa-grid label {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.results-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 0.6rem;
+}
+
+.result-number {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-number .label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-soft);
+}
+
+.result-number .value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+  color: #38bdf8; /* Bright Sky Blue/Cyan for better contrast against dark bg */
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
+}
+
+.result-badge {
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid transparent;
+}
+
+.result-badge.ok {
+  background: rgba(22, 163, 74, 0.12);
+  border-color: rgba(34, 197, 94, 0.6);
+  color: #bbf7d0;
+}
+
+.result-badge.warn {
+  background: var(--danger-soft);
+  border-color: rgba(248, 113, 113, 0.8);
+  color: #fecaca;
+}
+
+.results-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.9rem 0 0.3rem;
+}
+
+.results-meta dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-soft);
+}
+
+.results-meta dd {
+  margin: 0.18rem 0 0;
+  font-size: 0.9rem;
+}
+
+.message-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.message-list li {
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.message-list li--info {
+  border-color: rgba(59, 130, 246, 0.7);
+  background: var(--accent-soft);
+}
+
+.message-list li--warn {
+  border-color: rgba(248, 113, 113, 0.8);
+  background: var(--danger-soft);
+}
+
+.rules-content h3 {
+  margin: 0.6rem 0 0.3rem;
+  font-size: 0.9rem;
+}
+
+.rules-content ul {
+  margin: 0.15rem 0 0.4rem 1.1rem;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.rules-content li + li {
+  margin-top: 0.1rem;
+}
+
+.app-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.5rem 0 2rem;
+  background: rgba(2, 6, 23, 0.6); /* Subtle background */
+  backdrop-filter: blur(8px);
+  margin-top: -0.5rem;
+}
+
+.app-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.app-footer small {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+  max-width: 600px;
+}
+
+.app-footer strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Updated footer social links to align better */
+.footer-social-links {
+  margin-top: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.table-wrapper {
+  margin-top: 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.9),
+    rgba(15, 23, 42, 0.98)
+  );
+  overflow-x: auto;
+  /* Add custom scrollbar for overflow content */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
+/* Custom Scrollbar Styling */
+.table-wrapper::-webkit-scrollbar {
+  height: 6px; /* Horizontal scrollbar height */
+  width: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.3);
+  border-radius: 20px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(148, 163, 184, 0.5);
+}
+
+.table-wrapper--compact {
+  margin-top: 0.5rem;
+}
+
+.courses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.grade-scale-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.grade-scale-table th,
+.grade-scale-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+}
+
+.grade-scale-table thead {
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.9),
+    rgba(15, 23, 42, 0.6)
+  );
+}
+
+.grade-scale-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.special-grades-list {
+  margin: 0.35rem 0 0.4rem 1.1rem;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.special-grades-list li + li {
+  margin-top: 0.15rem;
+}
+
+.courses-table thead {
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.9),
+    rgba(15, 23, 42, 0.6)
+  );
+}
+
+.courses-table th,
+.courses-table td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+}
+
+.courses-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.courses-table tbody tr:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.courses-table tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.courses-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col--grade {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.col--actions {
+  text-align: center;
+  width: 2.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.4rem 0.45rem;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.input::placeholder {
+  color: #6b7280;
+}
+
+.input--number {
+  font-variant-numeric: tabular-nums;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--accent), var(--accent-strong));
+  color: white;
+  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn.secondary {
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: none;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--text-soft);
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 999px;
+}
+
+.icon-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.app-header select {
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.96);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 880px) {
+  .main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Floating mobile card effect */
+  body {
+    padding: 1rem;
+    background: #020617; /* Ensure background matches */
+  }
+
+  .page-frame {
+    /* Restore desktop-like borders/shadows but adapted for mobile */
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border-radius: var(--radius-lg);
+    overflow: hidden; /* Ensure content obeys radius */
+    min-height: auto; /* Allow it to fit content if needed, or keep 100vh if preferred, but usually auto is better for "card" look */
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: center; /* Center align header for cleaner look */
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+
+  .header-brand h1 {
+    font-size: 1.35rem; /* Keep readable size */
+  }
+
+  /* Restore header social links on mobile */
+  .header-right .social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  /* Adjust icon size slightly for mobile if needed, currently reusing standard */
+
+
+  .header-right {
+    width: 100%;
+    justify-content: center; /* Center the mode switcher */
+    gap: 0;
+  }
+
+  .mode-switcher {
+    flex-direction: column; /* Stack label and select again for better touch targets */
+    width: 100%;
+    max-width: 280px; /* Limit width */
+    margin: 0 auto;
+    align-items: stretch;
+  }
+
+  .mode-switcher label {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .app-header select {
+    text-align: center;
+    width: 100%;
+  }
+
+  .social-links {
+    margin-top: 0;
+  }
+
+  .previous-cgpa-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .main-layout {
+    padding: 1.1rem 0 1.4rem;
+  }
+
+  .footer-social-links {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .app-footer .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card {
+    padding: 1rem 0.9rem 1.05rem;
+  }
+
+  .card:first-of-type {
+    margin-top: 0.2rem;
+  }
+
+  /* Course Card Layout for Mobile */
+  .courses-table thead {
+    display: none; /* Hide standard table header */
+  }
+
+  .courses-table, .courses-table tbody, .courses-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .courses-table tr {
+    margin-bottom: 0.6rem; /* Reduced margin */
+    padding: 0.75rem; /* Reduced padding */
+    background: rgba(30, 41, 59, 0.4); 
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0.5rem; /* Reduced gap */
+    position: relative;
+  }
+  
+  /* Reset cell styling */
+  .courses-table td {
+    display: block;
+    padding: 0;
+    border: none;
+    min-width: 0 !important; /* Override previous min-widths */
+  }
+
+  /* 1. Course Code: Full width at top */
+  .courses-table td:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+  
+  /* 2. Credits: Left half */
+  .courses-table td:nth-child(2) {
+    grid-column: 1 / 2;
+  }
+  
+  /* 3. Marks: Middle/Right */
+  .courses-table td:nth-child(3) {
+    grid-column: 2 / 4;
+  }
+
+  /* Labels for inputs (pseudo-elements) */
+  .courses-table td:nth-child(1)::before { content: "Course Code"; }
+  .courses-table td:nth-child(2)::before { content: "Credits"; }
+  .courses-table td:nth-child(3)::before { content: "Obtained Marks"; }
+
+  .courses-table td:nth-child(1)::before,
+  .courses-table td:nth-child(2)::before,
+  .courses-table td:nth-child(3)::before {
+    display: block;
+    font-size: 0.65rem; /* Smaller label */
+    color: var(--text-soft);
+    margin-bottom: 0.15rem; /* Tighter label spacing */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* 7. Action (Delete): Absolute top-right */
+  .courses-table td:nth-child(7) {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: auto;
+  }
+
+  /* Hide Weight box on mobile */
+  .courses-table td:nth-child(6) {
+    display: none !important;
+  }
+
+  /* Stats Row (Grade, GP) - Side by Side Equal */
+  .courses-table td:nth-child(4),
+  .courses-table td:nth-child(5) {
+    grid-row: 3;
+    /* Reset specific column assignments to use natural flow or flex */
+    grid-column: auto; 
+  }
+
+  /* We need a wrapper effect, so let's use the grid placement to put them effectively side-by-side. 
+     The parent grid is 3 columns. 
+     Let's make Grade span 1.5 (not possible in simple grid without subgrid or changing tracks).
+     Easier: Make Grade column 1-2 (span 2?) and GP column ~2-3?
+     Let's just force them into a new flex container style by making them block? No, they are grid items.
+     Let's assign specific columns. 
+  */
+  
+  /* Grade: Left Half (Col 1 to mid of 2? No, let's span full and use flex for internal alignment or just use 2 evenly spaced columns if we change grid definition.
+     current grid is 1fr 1fr 1fr.
+     Let's place Grade at 1 / 2.
+     Let's place GP at 2 / 4 (Span 2).
+     User wants them "similar". 
+     Better: Grade at 1 / 3 (Span 2) ?? No.
+     Let's make them share the width equally.
+     WE can't easily validly share 3 columns perfectly by 2 items.
+     Let's change the grid definition for the whole row? No, inputs need space.
+     
+     Solution: Grade takes Col 1 & part of 2? No.
+     Let's put Grade in Col 1. GP in Col 2. Empty Col 3?
+     Or distinct styling:
+     Grade: Col 1/3 (First 2/3rds?)
+     GP: Col 3/4? 
+     
+     Actually, let's redefine the row grid for this row specifically if 'display: contents' was a thing (it is but requires subgrid support).
+     
+     Simpler: 
+     Grade -> Grid Column 1 / span 1? (actually lets adjust logic below)
+  */
+
+  /* Revised Grid for the card: 2 columns might be better than 3.
+     But Inputs need 3 (Code, Credits, Marks).
+     Let's make Grade span 1.5? No.
+     
+     Let's try: Grade (Col 1-2), GP (Col 2-4)? Overlap? No.
+     
+     Let's just set margins.
+     
+     Actually, let's make Grade Col 1 / 3. GP Col 3 / 4? No that's 2vs1.
+     
+     Let's set separate row for them? 
+     Or keep grid 1fr 1fr. 
+     
+     Let's override grid-template-columns for the TR to 1fr 1fr.
+     But then the top row inputs might break?
+     No, because inputs are just effectively blocks in cells.
+  */
+
+  .courses-table tr {
+    grid-template-columns: 1fr 1fr; /* Switch to 2 columns for better distribution */
+  }
+
+  /* 1. Code: Full Width */
+  .courses-table td:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  /* 2. Credits: Left */
+  .courses-table td:nth-child(2) {
+    grid-column: 1 / 2;
+  }
+
+  /* 3. Marks: Right */
+  .courses-table td:nth-child(3) {
+    grid-column: 2 / 3;
+  }
+
+  /* 4. Grade: Left */
+  .courses-table td:nth-child(4) {
+    grid-column: 1 / 2;
+    margin-right: 0.25rem;
+  }
+
+  /* 5. GP: Right */
+  .courses-table td:nth-child(5) {
+    grid-column: 2 / 3;
+    margin-left: 0.25rem;
+  }
+  
+  /* Style tweaks for uniformity & "Cool" factor */
+  .courses-table td:nth-child(4),
+  .courses-table td:nth-child(5) {
+    background: rgba(15, 23, 42, 0.6); /* Darker sleek background */
+    border: 1px solid rgba(59, 130, 246, 0.3); /* Thin accent border */
+    border-radius: 12px;
+    text-align: center;
+    padding: 0.35rem 0.4rem !important; /* Smaller padding */
+    font-size: 0.95rem; /* Slightly smaller value */
+    font-weight: 700;
+    color: #fff; /* Bright text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    min-height: 3.2rem; /* Reduced height */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Depth */
+  }
+
+  /* Labels (Restored) */
+  .courses-table td:nth-child(4)::after { content: "Grade"; }
+  .courses-table td:nth-child(5)::after { content: "Grade Point"; }
+
+  .courses-table td:nth-child(4)::after,
+  .courses-table td:nth-child(5)::after {
+    margin-top: 0.2rem;
+    font-size: 0.65rem;
+    color: var(--text-soft); /* Subdued label color */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Remove individual background override */
+  .courses-table td:nth-child(4) {
+    background: rgba(15, 23, 42, 0.6);
+    color: #fff;
+  }
+}
